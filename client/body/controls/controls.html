@@ -1,0 +1,10 @@
+<template name="controls">
+  <h3 data-bind="click: toggle" >Replay</h3>
+  <div class="ui segment" data-bind="if: show">
+    <div id="slider"></div>
+    <br>
+      <button data-bind="click: record"><i class="record icon"></i> </button>
+      <button data-bind="click: play"><i class="play icon"></i> </button>
+      <button data-bind="click: reverse"><i class="backward icon"></i> </button>
+  </div>
+</template>

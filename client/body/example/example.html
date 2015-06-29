@@ -1,0 +1,25 @@
+<template name="example">
+  <div class="ui grid">
+    <div class="column">
+      <form class="ui form">
+
+        <div class="field">
+          <label>Message</label>
+          <input type="text" data-bind="value: message">
+        </div>
+
+        <div class="two fields">
+          <div class="field">
+            <label>Colors</label>
+            <select size="6" class="ui search" data-bind="options: colors, value: selected"></select>
+          </div>
+          <div class="field">
+            <label>Selected</label>
+            <div class="ui segment" data-bind="style: { background-color: selected }" ></div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</template>
