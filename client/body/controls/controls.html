@@ -3,9 +3,9 @@
   <div class="ui segment" data-bind="if: show">
     <div id="slider"></div>
     <br>
-    <button data-bind="click: record"><i class="record icon"></i> </button>
-    <button data-bind="click: play"><i class="play icon"></i> </button>
-    <button data-bind="click: stop"><i class="stop icon"></i> </button>
-    <button data-bind="click: reverse"><i class="backward icon"></i> </button>
+    <button class="ui button" data-bind="click: record, enabled: !recording"><i class="record icon"></i> </button>
+    <button class="ui button" data-bind="click: play, enabled: !recording"><i class="play icon"></i> </button>
+    <button class="ui button" data-bind="click: stop, enabled: recording"><i class="stop icon"></i> </button>
+    <button class="ui button" data-bind="click: reverse, enabled: !recording"><i class="backward icon"></i> </button>
   </div>
 </template>

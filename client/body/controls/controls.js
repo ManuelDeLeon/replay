@@ -8,29 +8,60 @@ Template.controls.viewmodel({
     $( "#slider" ).slider();
   },
   play: function(){
-
+    var that = this;
+    var vm = ViewModel.byId("example");
+    var array = that.states().array();
+    var i = 0;
+    var thisInterval = Meteor.setInterval(function() {
+      i += 1;
+      $( "#slider" ).slider( "option", "value", i );
+      var obj = array.shift();
+      if (obj) {
+        vm.fromJS(obj);
+      } else {
+        Meteor.clearInterval(thisInterval);
+      }
+    }, 500);
   },
   reverse: function(){
-
+    var that = this;
+    var vm = ViewModel.byId("example");
+    var array = that.states().array();
+    var i = array.length;
+    var thisInterval = Meteor.setInterval(function() {
+      i -= 1;
+      $( "#slider" ).slider( "option", "value", i );
+      var obj = array.pop();
+      if (obj) {
+        vm.fromJS(obj);
+      } else {
+        Meteor.clearInterval(thisInterval);
+      }
+    }, 500);
   },
-  stopRecording: true,
-  recordingComputation: null,
+  recording: null,
   record: function(){
     var that = this;
-    if (! that.stopRecording()) {
-      that.stopRecording(false);
-      var vm = ViewModel.byId("example");
-      var c = Tracker.autorun(function () {
-        that.states().push(vm.toJS());
-      });
-      that.recordingComputation(c);
-    }
+
+    var vm = ViewModel.byId("example");
+    that.recording(Meteor.setInterval(function() {
+      that.states().push(vm.toJS());
+    }, 500));
+
   },
   stop: function(){
-    this.stopRecording(true);
-    if (this.recordingComputation()){
-      this.recordingComputation().stop();
-    }
+    Meteor.clearInterval(this.recording());
+    this.recording(null);
+    var that = this;
+    var vm = ViewModel.byId("example");
+    $( "#slider" ).slider({
+      min: 1,
+      max: this.states().length,
+      slide: function( event, ui ) {
+        console.log("slide");
+        vm.fromJS(that.states()[ui.value - 1]);
+      }
+    });
   }
 
 });
